@@ -17,10 +17,11 @@ import com.persistent.connectors.tasks.MySqlSinkTask;
 public class MySqlSinkConnector extends SinkConnector {
 
 	private Map<String, String> connectorConfigProperties;
+	public static final String CONNECTOR_VERSION = "1.0.0";
 	private static final Logger LOGGER = LoggerFactory.getLogger(MySqlSinkConnector.class);
 
 	public String version() {
-		return null;
+		return CONNECTOR_VERSION;
 	}
 
 	@Override
@@ -45,13 +46,13 @@ public class MySqlSinkConnector extends SinkConnector {
 
 	@Override
 	public List<Map<String, String>> taskConfigs(int maxTasks) {
-		final List<Map<String, String>> taskConfigs = new ArrayList<>();
+		final List<Map<String, String>> taskConfigurations = new ArrayList<>();
 		final Map<String, String> taskProps = new HashMap<>();
 		taskProps.putAll(this.connectorConfigProperties);
 		for (int i = 0; i < maxTasks; i++) {
-			taskConfigs.add(taskProps);
+			taskConfigurations.add(taskProps);
 		}
-		return taskConfigs;
+		return taskConfigurations;
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class MySqlSinkConnector extends SinkConnector {
 
 	@Override
 	public ConfigDef config() {
-		return null;
+		return MysqlConnectorConfig.configurationdefinition();
 	}
 
 }

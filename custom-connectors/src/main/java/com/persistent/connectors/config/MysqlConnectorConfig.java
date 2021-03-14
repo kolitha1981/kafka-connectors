@@ -22,14 +22,19 @@ public class MysqlConnectorConfig extends AbstractConfig {
 		super(definition, connectorConfigProperties);
 		LOGGER.info("@@@@ Constructor MysqlConnectorConfig(ConfigDef definition, Map<?, ?> connectorConfigProperties)");
 		final String userName = String.valueOf(connectorConfigProperties.get(MysqlConnectorConstants.MYSQL_USERNAME));
+		LOGGER.info("@@@@ Username:"+ userName);
 		final String password = String.valueOf(connectorConfigProperties.get(MysqlConnectorConstants.MYSQL_PASSWORD));
-		final String serverHosName = String
+		LOGGER.info("@@@@ Password:"+ password);
+		final String serverHostName = String
 				.valueOf(connectorConfigProperties.get(MysqlConnectorConstants.MYSQL_SERVER_NAME_DOC));
+		LOGGER.info("@@@@ Server host:"+ serverHostName);
 		final String serverPort = String
 				.valueOf(connectorConfigProperties.get(MysqlConnectorConstants.MYSQL_SERVER_PORT));
+		LOGGER.info("@@@@ Server port:"+ serverPort);
 		final String databaseName = String
 				.valueOf(connectorConfigProperties.get(MysqlConnectorConstants.MYSQL_SERVER_DATABASE_NAME));
-		final MySqlDataSourceConfig mySqlDataSourceConfig = MySqlDataSourceConfig.createConfig(serverHosName, serverPort,
+		LOGGER.info("@@@@ DatabaseName:"+ databaseName);
+		final MySqlDataSourceConfig mySqlDataSourceConfig = MySqlDataSourceConfig.createConfig(serverHostName, serverPort,
 				userName, password, databaseName);
 		ConnectorServiceFactoryImpl.INSTANCE.register(new MysqlConnectionService(mySqlDataSourceConfig));
 	}

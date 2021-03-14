@@ -46,6 +46,7 @@ public class MySqlSinkConnector extends SinkConnector {
 
 	@Override
 	public List<Map<String, String>> taskConfigs(int maxTasks) {
+		LOGGER.info("@@@@@@@@@@ Task configs @@@@@@@@@@@@@@@@@@@@@@@");
 		final List<Map<String, String>> taskConfigurations = new ArrayList<>();
 		final Map<String, String> taskProps = new HashMap<>();
 		taskProps.putAll(this.connectorConfigProperties);

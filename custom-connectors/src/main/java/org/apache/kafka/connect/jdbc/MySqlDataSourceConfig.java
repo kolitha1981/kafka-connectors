@@ -1,7 +1,5 @@
 package org.apache.kafka.connect.jdbc;
 
-import java.text.MessageFormat;
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.kafka.connect.jdbc.MysqlConnectionService;
-import org.apache.kafka.connect.service.ConnectorServiceFactoryImpl;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
@@ -18,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import com.persistent.connectors.MySqlSinkConnector;
+import com.persistent.connectors.jdbc.MysqlConnectionService;
 import com.persistent.connectors.model.Student;
+import com.persistent.connectors.service.ConnectorServiceFactoryImpl;
 
 public class MySqlSinkTask extends SinkTask {
 
@@ -42,15 +42,16 @@ public class MySqlSinkTask extends SinkTask {
 		LOGGER.info("@@@@ Starting the put(Collection<SinkRecord> sinkRecords) :" + sinkRecords);
 		final List<String> records = sinkRecords.stream().map(record -> String.valueOf(record.value()))
 				.collect(Collectors.toList());
-		try (final Connection jdbcConnection = mysqlConnectionService.getConnection();
-			 final PreparedStatement preparedStatement = jdbcConnection
-						.prepareStatement("INSERT INTO STUDENT(STUDENT_ID,STUDENT_NAME,AGE) VALUES(?,?,?)");) {	
-			records.forEach(record -> 
-				setPreparedStatementValues(preparedStatement, record)
-			);
-			preparedStatement.executeBatch();
-		} catch (Exception e) {
-			LOGGER.info("@@@@ Error when calling addBatch() :" + e.getMessage());
+		LOGGER.info("Records size :" + records.size());
+		if (!records.isEmpty()) {
+			try (final Connection jdbcConnection = mysqlConnectionService.getConnection();
+					final PreparedStatement preparedStatement = jdbcConnection
+							.prepareStatement("INSERT INTO STUDENT(STUDENT_ID,STUDENT_NAME,AGE) VALUES(?,?,?)");) {
+				records.forEach(record -> setPreparedStatementValues(preparedStatement, record));
+				preparedStatement.executeBatch();
+			} catch (Exception e) {
+				LOGGER.info("@@@@ Error when calling addBatch() :" + e.getMessage());
+			}
 		}
 	}
 

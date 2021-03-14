@@ -1,4 +1,4 @@
-package org.apache.kafka.connect.jdbc;
+package com.persistent.connectors.jdbc;
 
 import java.sql.Connection;
 
@@ -18,6 +18,16 @@ public class MysqlConnectionService {
 			return this.hikariDataSource.getConnection();
 		} catch (Exception e) {
 			throw new MysqlDataSourceException("@@@@@@ Error when retrieving connection: " + e.getMessage());
+		}
+	}
+	
+	public void shutDown() {
+		try {
+			if(!this.hikariDataSource.isClosed()) {
+				this.hikariDataSource.close();
+			}
+		} catch (Exception e) {
+			throw new MysqlDataSourceException("@@@@@@ Error when closing datasource: " + e.getMessage());
 		}
 	}
 

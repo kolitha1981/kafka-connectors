@@ -1,4 +1,4 @@
-package org.apache.kafka.connect.service;
+package com.persistent.connectors.service;
 
 import java.util.HashMap;
 import java.util.Map;

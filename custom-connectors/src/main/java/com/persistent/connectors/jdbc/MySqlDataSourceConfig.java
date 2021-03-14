@@ -1,4 +1,4 @@
-package org.apache.kafka.connect.jdbc;
+package com.persistent.connectors.jdbc;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

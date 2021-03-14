@@ -7,13 +7,13 @@ import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
 import org.apache.kafka.common.config.ConfigDef.Type;
-import org.apache.kafka.connect.jdbc.MySqlDataSourceConfig;
-import org.apache.kafka.connect.jdbc.MysqlConnectionService;
-import org.apache.kafka.connect.service.ConnectorServiceFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.persistent.connectors.constants.MysqlConnectorConstants;
+import com.persistent.connectors.jdbc.MySqlDataSourceConfig;
+import com.persistent.connectors.jdbc.MysqlConnectionService;
+import com.persistent.connectors.service.ConnectorServiceFactoryImpl;
 
 public class MysqlConnectorConfig extends AbstractConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MysqlConnectorConfig.class);
